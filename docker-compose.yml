@@ -1,0 +1,8 @@
+services:
+  ollama-openai-api-proxy:
+    build: .
+    ports:
+      - "11434:11434"
+    env_file: ".env"
+    volumes:
+      - .:/app
