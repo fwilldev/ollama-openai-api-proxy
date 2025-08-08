@@ -33,7 +33,10 @@ ALLOWED_MODELS = {
     "o3-mini",
     "o1-mini",
     "o4",
-    "o4-mini"
+    "o4-mini",
+    "gpt-5",
+    "gpt-5-mini",
+    "gpt-5-nano"
 }
 
 class ChatMessage(BaseModel):

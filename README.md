@@ -71,12 +71,13 @@ You can use this proxy as an offline model for Jetbrains AI Assistant.
 
 1. Go to `Settings`
 2. Got to `Tools` --> `AI Assistant`
-3. Under `Models` --> `Enable Ollama` and change the port to `8000`
+3. Under `Models` --> `Enable Ollama`
 4. Now in the AI Chat, you can select the model under `Ollama`
 
 ## TODOs
 
 - Proxy more Ollama Endpoints to OpenAI
+- Maybe get Models from OpenAIs API directly, but then the lists gets pretty big
 - Small frontend with:
   - Usage of given API Key
   - Costs of given API Key
