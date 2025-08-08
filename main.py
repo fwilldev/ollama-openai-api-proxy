@@ -56,10 +56,13 @@ class TagsResponse:
     model: str
 
 def is_reasoning_model(model):
-    return model in ['gpt-4o', 'gpt-4o-mini', 'o4-mini', 'o3', 'o3-pro', 'o3-mini', 'o1', 'o1-pro', 'o1-mini']
+    return model in ['gpt-4o', 'gpt-5', 'gpt-5-mini', 'gpt-5-nano', 'gpt-4o-mini', 'o4-mini', 'o3', 'o3-pro', 'o3-mini', 'o1', 'o1-pro', 'o1-mini']
 
 def now_rfc3339() -> str:
     return datetime.now().isoformat("T") + "Z"
+
+def is_gpt_5(model):
+    return model in ['gpt-5', 'gpt-5-mini', 'gpt-5-nano']
 
 @app.post("/api/chat")
 async def chat_completions(req: ChatResponseRequest):
@@ -80,13 +83,12 @@ async def chat_completions(req: ChatResponseRequest):
     """
     prompt = "\n".join(f"{m.role}: {m.content}" for m in req.messages)
     reasoning_arg = Reasoning(effort="medium") if req.think and is_reasoning_model(req.model) else NOT_GIVEN
-
     try:
         if req.stream:
             streamer = client.responses.create(
                 model=req.model,
                 input=prompt,
-                temperature=req.temperature,
+                temperature=req.temperature if not is_gpt_5(req.model) else NOT_GIVEN,
                 stream=True,
                 reasoning=reasoning_arg
             )
